@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="빅데이터 활용 마이스터 로봇화 기반구축 사업">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="Imitation learning-based robotization of polishing process">
+  <meta name="keywords" content="Imitation learning, DMP, Polishing, Robot">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Imitation Learning and Residual Policy-Based Refinement System</title>
+  <title>Imitation learning-based robotization of polishing process</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -104,16 +104,13 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-2 publication-title">
-            Data-Based Imitation Learning and<br>
-            Residual Policy-Based Refinement System
+            Imitation learning-based robotization of polishing process
           </h1>
           <div class="is-size-4">
-            <span class="author-block">Intelligent Robotics Research Center,</span>
             <span class="author-block">Korea Electronics Technology Institute (KETI)</span>
           </div>
 
           <div class="is-size-4">
-            <span class="author-block">지능로보틱스연구센터,</span>
             <span class="author-block">한국전자기술연구원</span>
           </div>
 
@@ -121,7 +118,7 @@
             <div class="publication-links">
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/Meister-Robotization/meister-imitation"
+                <a href="https://github.com/meister-polishing/meister-polishing.github.io"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -131,7 +128,7 @@
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://gofile.me/6Z1hR/Awoz7TSYe"
+                <a href="https://github.com/meister-polishing/meister-polishing.github.io"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="far fa-images"></i>
@@ -151,54 +148,23 @@
   <div class="container is-max-desktop">
 
     <div class="columns is-centered">
-
-      <!-- Left: Robot System -->
-      <div class="column">
+      <div class="column is-full-width">
         <div class="content">
           <h2 class="title is-3">Robot System</h2>
           <p>
-            We explained the robot setup using two Franka arms equipped with custom-built two-finger grippers.
-            For scene understanding, we used three RGB cameras:
-            one top-view camera observing the entire workspace and two wrist-mounted cameras attached to each robot.
-            These three viewpoints provide complementary visual information for robust perception during bimanual manipulation.
+            The system consists of a robot manipulator (VM6083, Denso, Japan) and a PC (NUC, Intel, USA). Also, a polishing device is attached at the end-effector of the robot. The robot is to polish an aluminum plate placed in front of the robot.
           </p>
           <p>
-            두 대의 Franka 로봇 팔을 사용하고, 자체 제작한 2지 그리퍼를 장착하여 양팔 로봇 시스템을 구성하였다.
-            작업 환경 인식을 위해 총 3대의 RGB 카메라를 사용했으며, 상부(top-view) 카메라 1대와 양 로봇 팔목에 장착된 wrist 카메라 2대로 구성된다.
-            세 시점의 영상 정보를 통해 양팔 조작 과정에서 작업 환경을 안정적으로 인식할 수 있도록 하였다.
+            시스템은 크게 로봇 머니퓰레이터 (VM6083, Denso, Japan)와 제어를 위한 PC(NUC, Intel, USA)로 구성되며 로봇 말단부에는 연마를 위한 연마 장비가 장착된다. 로봇은 로봇 앞에 고정된 알루미늄 플레이트의 연마를 목적으로 한다.
           </p>
 
           <figure class="image">
             <img class="project-img"
-                 src="./static/images/시스템1.jpg"
-                 alt="Robot System Image">
+                 src="./static/images/picture1.png"
+                 alt="Robot System">
           </figure>
         </div>
       </div>
-
-      <!-- Right: Teleoperation -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Data Collection System</h2>
-          <p>
-            We built a leader device with the same kinematic structure as the Franka robot, inspired by a GELLO-style design.
-            When a human moves the leader device by hand, the robot follows the same motion through kinematic correspondence.
-            This teleoperation setup enables efficient collection of bimanual task demonstrations.
-          </p>
-          <p>
-            Franka 로봇과 기구학적으로 동일한 리더(leader) 기구를 제작했으며(GELLO 기반), 사람이 리더 기구를 잡고 움직이면 로봇이 동일한 기구학 구조로 대응 움직임을 수행하도록 구성하였다.
-            이를 통해 사람의 직접 시연으로 양팔 로봇 작업 데이터를 효율적으로 수집할 수 있다.
-            즉, 텔레오퍼레이션 기반의 시연 데이터 수집 시스템을 구축하였다.
-          </p>
-
-          <figure class="image">
-            <img class="project-img"
-                 src="./static/images/마스터1.jpg"
-                 alt="Teleoperation Image">
-          </figure>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -210,46 +176,31 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Training Data Collection</h2>
+        <h2 class="title is-3">Imitation learning</h2>
 
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Teleoperation-based bimanual task data collection</h3>
+        <h3 class="title is-4">DMP</h3>
         <div class="content has-text-justified">
           <p>
-            Using the leader device, we collected bimanual demonstrations while the robots executed tasks under human teleoperation.
-            The logged data include each robot’s joint angles and joint velocities, along with synchronized camera images from all viewpoints.
-            As a bimanual task, the left arm pushed a lever while the right arm pressed a blue button.
+            Dynamic movement primitives (DMP) is an imitation learning method widely used in robotics. It allows the parameterization of trajectories from a single demonstration. The parameterized trajectory can be spatially and temporally scaled.
           </p>
           <p>
-            리더 기구를 활용한 텔레오퍼레이션으로 양팔 로봇 작업을 수행하면서 시연 데이터를 취득하였다.
-            기록되는 데이터는 로봇 각 관절의 각도 및 속도 정보와, 모든 카메라 시점에서 동기화된 이미지 데이터 등으로 구성된다.
-            양팔 작업으로 왼팔은 레버를 밀고 오른팔은 파란색 버튼을 누르는 동작을 수행하였다.
+            Dynamic movement primitives (DMP)는 로봇 분야 등에서 널리 사용되는 모방학습 기법 중 하나로 1개의 시연으로 부터 로봇 궤적을 생성할 수 있다는 장점이 있음. 또한 생성된 궤적의 시간적, 공간적 스케일링이 가능하다는 장점이 있음.
           </p>
-        </div>
-        <div class="content has-text-centered">
-          <video autoplay controls muted loop playsinline width="80%">
-            <source src="./static/videos/teleoperation_small.mp4" type="video/mp4">
-          </video>
         </div>
 
-        <h3 class="title is-4">Camera image data acquisition</h3>
+        <h3 class="title is-4">Collecting and processing human demonstration</h3>
         <div class="content has-text-justified">
           <p>
-            Because we use three cameras, each collected trajectory includes three synchronized RGB image streams.
-            The top-view camera is mounted at an appropriate height to capture the full workspace,
-            while wrist cameras provide close-up views of contact-relevant regions.
-            We do not apply additional image preprocessing; the raw RGB images are directly used as policy inputs.
+            First, a human expert performs polishing in front of a RGB-D camera (Femto Bolt, Orbbec, USA). Using a hand tracking algorithm (mediapipe), the 3D position of the human hand is recorded. Then, a robot trajectory can be generated through coordinate transform, low pass filtering and DMP.
           </p>
           <p>
-            총 3대의 카메라를 사용하므로, 데이터 수집 시에도 3가지 시점의 RGB 이미지가 모두 포함된다.
-            상부(top-view) 카메라는 작업 환경 전체가 관측되도록 적절한 높이에 설치했으며, 팔목 카메라는 접촉 및 조작 부위를 근접 관측하는 용도로 활용된다.
-            이미지는 별도의 전처리 없이 RGB 그대로 정책 입력으로 사용하였다.
+            우선 숙련공이 RGB-D센서(Femto Bolt, Orbbec, USA)앞에서 연마 시연을 수행한다. 이때 핸드 추적 알고리즘 (mediapipe)를 이용하여 사용자 손의 3차원 위치를 기록하며, 이후 좌표 변환, 저역통과 필터, 그리고 DMP를 통해 로봇 모션을 생성하게 된다.
           </p>
         </div>
         <figure class="image">
           <img class="project-img2"
-               src="./static/images/카메라사진.png"
-               alt="~~~">
+               src="./static/images/picture5.png"
+               alt="Collecting and processing human demonstration">
         </figure>
 
       </div>
@@ -262,111 +213,25 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Data-Based Imitation Learning</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Imitation learning</h3>
+        <h2 class="title is-3">Results</h2>
         <div class="content has-text-justified">
           <p>
-            We collected only ten task demonstrations and used them as the training dataset for imitation learning.
-            The total time required to acquire these ten trajectories via teleoperation was approximately five minutes,
-            making the dataset extremely lightweight.
-            Using the recorded state–action pairs,
-            we trained the policy with supervised behavior cloning and intentionally evaluated performance under a low-data regime.
+            Test was performed on two types of trajectories: zig-zag and circular. The generated trajectory is transferred to the robot manipulator, and the robot successfully performed the two types of polishing. As can be seen from the videos below, the robot can accurately reproduce zig-zag and circular motion demonstrated by the human expert.
           </p>
           <p>
-            총 10회의 작업 시연 데이터를 생성하여 모방학습 학습 데이터로 활용하였다.
-            텔레오퍼레이션으로 10개 시연을 취득하는 데 걸린 시간은 약 5분 내외로 매우 짧다.
-            수집된 State–Action 데이터를 이용해 지도학습 기반의 행동 복제(behavior cloning)로 정책을 학습하였다.
-            적은 데이터에서도 성능이 나오는지 확인하기 위해 추가 데이터를 더 취득하지 않고 저데이터 조건에서 실험을 진행하였다.
+            지그재그와 원형 2가지 모션에 대해서 테스트를 수행하였음. DMP를 통해 생성된 궤적을 로봇 제어기로 전달 하였으며 로봇은 이 동작을 추종하여 연마작업을 수행하였음. 하단 영상에서 볼 수 있듯이 모방학습을 이용하면 로봇은 성공적으로 지그재그 및 원형 연마 동작을 수행할 수 있음을 알 수 있음.
           </p>
         </div>
         <div class="content has-text-centered">
-          <video autoplay controls muted loop playsinline width="80%">
-            <source src="./static/videos/imitation_result_small.mp4" type="video/mp4">
+          <video controls muted loop playsinline width="80%">
+            <source src="./static/videos/video1.wmv" type="video/x-ms-wmv">
           </video>
-        </div>
-
-        <h3 class="title is-4">ACT-based imitation learning</h3>
-        <div class="content has-text-justified">
-          <p>
-            We perform imitation learning using the Action Chunking Transformer (ACT),
-            which leverages a Transformer architecture to model sequential decision-making in manipulation tasks.
-            Instead of predicting a single action at each timestep,
-            ACT predicts an “action chunk,” i.e., a short sequence of future actions conditioned on the current observation.
-            By explicitly forecasting upcoming actions, the policy achieves more stable and consistent long-horizon control.
-            In our system, multi-view RGB images (and robot state) are used as inputs to policy, and the robot is autonomously controlled using the predicted action chunks.
-          </p>
-          <p>
-            ACT(Action Chunking Transformer) 알고리즘을 활용하여 모방학습을 수행하였다.
-            ACT는 Transformer 구조를 기반으로 시계열 의사결정을 모델링하며,
-            매 시점에서 단일 action을 예측하는 대신 “action chunk(미래 행동 시퀀스)”를 한 번에 추정하는 방식이 핵심이다.
-            즉, 가까운 미래의 연속 행동을 예측함으로써 장시간 조작에서도 제어를 보다 안정적으로 수행할 수 있다.
-            본 시스템에서는 멀티뷰 RGB 이미지(및 로봇 상태)를 입력으로 받아 예측된 action chunk를 활용하여 로봇을 자율구동하였다.
-          </p>
-        </div>
-        <figure class="image">
-          <img class="project-img2"
-               src="./static/images/ACT그림.png"
-               alt="~~~~">
-        </figure>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Residual Policy-Based Refinement</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Human-in-the-loop based residual policy learning</h3>
-        <div class="content has-text-justified">
-          <p>
-            When executing the imitation policy, the robot reliably pressed the button but often failed to push the lever sufficiently.
-            We hypothesize that this limitation stems from the extremely small demonstration dataset,
-            which may not cover the required contact variations.
-            To improve performance with minimal additional cost,
-            we introduce a human-in-the-loop residual policy that provides corrective action on top of the base imitation policy.
-          </p>
-          <p>
-            모방 정책으로 작업을 수행했을 때 버튼은 비교적 안정적으로 눌렀지만,
-            레버를 충분히 밀지 못하는 문제가 발생하였다. 이는 시연 데이터 수가 적어 접촉/상호작용 상황의 변동을 충분히 학습하지 못했기 때문으로 판단하였다.
-            이에 추가 데이터 수집 비용을 크게 늘리지 않으면서 성능을 향상시키기 위해, 기본 모방 정책 위에 보정 행동을 더하는 human-in-the-loop 기반 residual policy 학습을 설계하였다.
-          </p>
         </div>
         <div class="content has-text-centered">
-          <video autoplay controls muted loop playsinline width="80%">
-            <source src="./static/videos/residual_result_small.mp4" type="video/mp4">
+          <video controls muted loop playsinline width="80%">
+            <source src="./static/videos/video2.wmv" type="video/x-ms-wmv">
           </video>
         </div>
-
-        <h3 class="title is-4">Supervised learning-based residual policy learning</h3>
-        <div class="content has-text-justified">
-          <p>
-            We enabled real-time human intervention during policy execution using a 3D mouse,
-            allowing the operator to inject corrective residual actions when needed.
-            For each episode, the human selectively intervened,
-            and the combined correction signals were recorded as training targets for the residual policy.
-            The residual policy was updated after every episode via supervised learning,
-            and with only three intervention episodes the robot learned to autonomously push the lever successfully.
-          </p>
-          <p>
-            모방 정책이 실행될 때 사람이 3D 마우스를 통해 실시간으로 개입할 수 있도록 시스템을 구성하였다.
-            각 에피소드에서 사람이 필요하다고 판단되는 구간에만 보정(residual) 행동을 추가로 수행하였고,
-            해당 보정 데이터를 residual policy 학습 데이터로 저장하였다. residual policy는 매 에피소드 종료 후 지도학습 방식으로 업데이트하였다.
-            그 결과, 단 3회의 사람 개입만으로도 레버를 미는 자율 동작을 수행할 수 있었다.
-          </p>
-        </div>
-        <figure class="image">
-          <img class="project-img2"
-               src="./static/images/알고리즘파이프라인.png"
-               alt="~~~~">
-        </figure>
 
       </div>
     </div>
