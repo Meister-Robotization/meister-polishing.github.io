@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="빅데이터 활용 마이스터 로봇화 기반구축 사업">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Imitation Learning and Residual Policy-Based Refinement System</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+<link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+<link rel="stylesheet" href="./static/css/index.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+<style>
+  .project-img {
+    width: 100%;     /* 문단 폭과 동일 */
+    height: auto;    /* 비율 유지 */
+    display: block;  /* 아래 여백/inline 문제 방지 */
+  }
+</style>
+<style>
+  .project-img2 {
+    width: 60% !important;     /* 문단 폭과 동일 */
+    height: auto;    /* 비율 유지 */
+    display: block;  /* 아래 여백/inline 문제 방지 */
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://github.com/Meister-Robotization/meister-imitation.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/Meister-Robotization/meister-imitation.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://github.com/Meister-Robotization/meister-imitation.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://github.com/Meister-Robotization/meister-imitation.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://github.com/Meister-Robotization/meister-imitation.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+<!-- KETI Logo -->
+<section class="logo">
+  <div class="has-text-centered" style="margin-bottom: 12px;">
+    <img src="./static/images/keti_logo.jpg"
+        alt="KETI Logo"
+        style="height: 90px; width: auto;">
+  </div>
+</section>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">
+            Data-Based Imitation Learning and<br>
+            Residual Policy-Based Refinement System
+          </h1>
+          <div class="is-size-4">
+            <span class="author-block">Intelligent Robotics Research Center,</span>
+            <span class="author-block">Korea Electronics Technology Institute (KETI)</span>
+          </div>
+
+          <div class="is-size-4">
+            <span class="author-block">지능로보틱스연구센터,</span>
+            <span class="author-block">한국전자기술연구원</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Meister-Robotization/meister-imitation.github.io"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Meister-Robotization/meister-imitation.github.io"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Left: Robot System -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Robot System</h2>
+          <p>
+            Using you can create fun visual effects. This Dolly zoom effect
+            would be impossible without nerfies since it would require going through a wall.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+
+          <figure class="image">
+            <img class="project-img"
+                 src="./static/images/시스템1.jpg"
+                 alt="Robot System Image">
+          </figure>
+        </div>
+      </div>
+
+      <!-- Right: Teleoperation -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Data Collection System</h2>
+          <p>
+            As a byproduct of our method, we can also solve the matting problem by ignoring
+            samples that fall outside of a bounding box during rendering.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+
+          <figure class="image">
+            <img class="project-img"
+                 src="./static/images/마스터1.jpg"
+                 alt="Teleoperation Image">
+          </figure>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+  
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Training Data Collection</h2>
+
+        <!-- Interpolating. -->
+        <h3 class="title is-4">Teleoperation-based bimanual task data collection</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video autoplay controls muted loop playsinline width="80%">
+            <source src="./static/videos/teleoperation_small.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <h3 class="title is-4">Camera image data acquisition</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <figure class="image">
+          <img class="project-img2"
+               src="./static/images/카메라사진.png"
+               alt="~~~">
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Data-Based Imitation Learning</h2>
+
+        <!-- Interpolating. -->
+        <h3 class="title is-4">Low-data imitation learning</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video autoplay controls muted loop playsinline width="80%">
+            <source src="./static/videos/imitation_result_small.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <h3 class="title is-4">ACT-based imitation learning</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <figure class="image">
+          <img class="project-img2"
+               src="./static/images/ACT그림.png"
+               alt="~~~~">
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Residual Policy-Based Refinement</h2>
+
+        <!-- Interpolating. -->
+        <h3 class="title is-4">Human-in-the-loop based residual policy learning</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video autoplay controls muted loop playsinline width="80%">
+            <source src="./static/videos/residual_result_small.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <h3 class="title is-4">ACT-based imitation learning</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <figure class="image">
+          <img class="project-img2"
+               src="./static/images/알고리즘파이프라인.png"
+               alt="~~~~">
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website was built off of <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a> source
+            code
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
