@@ -45,6 +45,11 @@
     display: block;  /* 아래 여백/inline 문제 방지 */
     margin: 0 auto;
   }
+  /* 그림5 전용: project-img2의 !important를 덮어씀 */
+  img.picture5-large {
+    width: 134% !important;
+    height: auto !important;
+  }
 </style>
 </head>
 <body>
@@ -200,10 +205,9 @@
           </p>
         </div>
         <figure class="image">
-          <img class="project-img2"
+          <img class="project-img2 picture5-large"
                src="./static/images/picture5.png"
-               alt="Collecting and processing human demonstration"
-               style="width: 134%; height: auto;">
+               alt="Collecting and processing human demonstration">
         </figure>
 
       </div>
@@ -227,12 +231,12 @@
         </div>
         <div class="content has-text-centered">
           <video controls muted loop playsinline width="80%">
-            <source src="./static/videos/video1.mp4" type="video/x-ms-wmv">
+            <source src="./static/videos/video1.mp4" type="video/mp4">
           </video>
         </div>
         <div class="content has-text-centered">
           <video controls muted loop playsinline width="80%">
-            <source src="./static/videos/video2.mp4" type="video/x-ms-wmv">
+            <source src="./static/videos/video2.mp4" type="video/mp4">
           </video>
         </div>
 
